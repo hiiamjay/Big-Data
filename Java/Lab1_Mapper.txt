@@ -1,0 +1,38 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2578
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Mapper:\
+// Importing libraries \
+import java.io.IOException; \
+import org.apache.hadoop.io.IntWritable; \
+import org.apache.hadoop.io.LongWritable; \
+import org.apache.hadoop.io.Text; \
+import org.apache.hadoop.mapred.MapReduceBase; \
+import org.apache.hadoop.mapred.Mapper; \
+import org.apache.hadoop.mapred.OutputCollector; \
+import org.apache.hadoop.mapred.Reporter; \
+  \
+public class WCMapper extends MapReduceBase implements Mapper<LongWritable, \
+                                                Text, Text, IntWritable> \{ \
+  \
+    // Map function \
+    public void map(LongWritable key, Text value, OutputCollector<Text,  \
+                 IntWritable> output, Reporter rep) throws IOException \
+    \{ \
+  \
+        String line = value.toString(); \
+  \
+        // Splitting the line on spaces \
+        for (String word : line.split(" "))  \
+        \{ \
+            if (word.length() > 0) \
+            \{ \
+                output.collect(new Text(word), new IntWritable(1)); \
+            \} \
+        \} \
+    \} \
+\}}
